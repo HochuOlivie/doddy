@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  django:
+    build:
+      context: .
+    container_name: django_app
+    command: gunicorn projectname.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/code
+    expose:
+      - 8000
+    labels:
+      - "traefik.http.routers.django.rule=Host(`yourdomain.com`)"
+      - "traefik.http.routers.django.entrypoints=websecure"
+      - "traefik.http.routers.django.tls=true"
+      - "traefik.http.routers.django.tls.certresolver=letsencrypt"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: doddy_db
+      POSTGRES_USER: doddy_user
+      POSTGRES_PASSWORD: doddy_password
+
+  traefik:
+    image: traefik:v2.5
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=youremail@example.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+
+volumes:
+  postgres_data:
