@@ -11,7 +11,7 @@ services:
     expose:
       - 8000
     labels:
-      - "traefik.http.routers.django.rule=Host(`doddinft.ru`)"
+      - "traefik.http.routers.django.rule=Host(`doddynft.ru`)"
       - "traefik.http.routers.django.entrypoints=websecure"
       - "traefik.http.routers.django.tls=true"
       - "traefik.http.routers.django.tls.certresolver=letsencrypt"
