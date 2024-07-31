@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+TG_API_TOKEN = "7293560232:AAEfbhXF-bNtG1J_AY24ghfRcKUQLiCEmxM"
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'doddy.middleware.TelegramAuthMiddleware'
 ]
 
 ROOT_URLCONF = 'DoddyNFT.urls'
@@ -131,3 +132,5 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'doddy.DoddyUser'

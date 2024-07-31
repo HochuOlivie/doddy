@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const initdata = window.Telegram.WebApp.initData
+
+            if (initdata) {
+                fetch('/auth/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ initdata: initdata })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert('Error: ' + data.error);
+                    } else {
+                        window.location.href = '/';  // Перенаправление на стартовую страницу
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
+{% endblock %}
