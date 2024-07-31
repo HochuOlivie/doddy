@@ -11,10 +11,10 @@ services:
     expose:
       - 8000
     labels:
-      - "traefik.http.routers.django.rule=Host(`doddynft.ru`)"
-      - "traefik.http.routers.django.entrypoints=websecure"
-      - "traefik.http.routers.django.tls=true"
-      - "traefik.http.routers.django.tls.certresolver=letsencrypt"
+      - "traefik.enable=true"
+      - "traefik.http.routers.fastapi.rule=Host(`doddynft.ru`)"
+      - "traefik.http.routers.fastapi.tls=true"
+      - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
     depends_on:
       - db
 
@@ -28,23 +28,22 @@ services:
       POSTGRES_PASSWORD: doddy_password
 
   traefik:
-    image: traefik:v2.5
-    container_name: traefik
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myresolver.acme.email=youremail@example.com"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    build:
+      context: .
+      dockerfile: Dockerfile.traefik
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
+    labels:
+      - "traefik.enable=true"
+#      - "traefik.http.routers.dashboard.rule=Host(`doddynft.ru`)"
+      - "traefik.http.routers.dashboard.tls=true"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./letsencrypt:/letsencrypt"
+      - "./letsencrypt:/certificates"
 
 volumes:
   postgres_data:
