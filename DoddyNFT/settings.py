@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)r))-rfle6mg$0$w)x-g-1w%ho0sm-k@umgxjxk3_al3&kl+y-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['doddynft.ru']
+ALLOWED_HOSTS = ['doddynft.ru', '127.0.0.1']
 
 TG_API_TOKEN = "7293560232:AAEfbhXF-bNtG1J_AY24ghfRcKUQLiCEmxM"
 # Application definition

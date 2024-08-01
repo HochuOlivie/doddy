@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 from decimal import Decimal
+from math import floor
 
 
 class DoddyUser(AbstractUser):
@@ -45,7 +46,7 @@ class DoddyUser(AbstractUser):
         if new_energy > self.max_energy:
             new_energy = self.max_energy
 
-        return new_energy
+        return floor(new_energy)
 
     def update_energy(self, user_timestamp, clicks):
         now = timezone.now()

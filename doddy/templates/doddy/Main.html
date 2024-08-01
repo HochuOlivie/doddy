@@ -1,73 +1,71 @@
-{% extends 'base.html' %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=768">
+	<meta name="description" content="">
+    <script>
+        window.Telegram = {}
+        window.Telegram.WebApp = {}
+        window.Telegram.WebApp.initData = `query_id=AAEjbQprAgAAACNtCmvL9Vos&user={"id":6090812707,"first_name":"Johan","last_name":"","username":"shrim_l","language_code":"ru","allows_write_to_pm":true}&auth_date=1722465166&hash=7cb6c65514106e484bc15e0e0adfc4579762954dc753d5fff1f4baf7c34e95c8`
+    </script>
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+	<link rel="icon" type="image/png" href="favicon/favicon.ico" sizes="16x16">	
+	<title></title>
+</head>
 <body>
 	<div class="wrapper">
 	<!-- Header -->		
 	<header id="header">
 		<div class="header_site">
 			<div class="row">
-				<div class="header_templ">
-					<div>
-						<button type="button" class="close_btn">
-							<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M2 2L26.08 26.08" stroke="black" stroke-width="2.05" stroke-linecap="round" stroke-linejoin="round"/>
-								<path d="M26.08 2L2 26.08" stroke="black" stroke-width="2.05" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-						</button>
-					</div>
-					<div>
-						<h1>Doodies_inc</h1>
-					</div>
-					<div>
-						<button type="button" class="dots">
-							<svg width="7" height="32" viewBox="0 0 7 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M3.36999 6.73001C5.0876 6.73001 6.47998 5.33762 6.47998 3.62001C6.47998 1.9024 5.0876 0.51001 3.36999 0.51001C1.65239 0.51001 0.26001 1.9024 0.26001 3.62001C0.26001 5.33762 1.65239 6.73001 3.36999 6.73001Z" fill="black"/>
-								<path d="M3.36999 19.31C5.0876 19.31 6.47998 17.9176 6.47998 16.2C6.47998 14.4824 5.0876 13.09 3.36999 13.09C1.65239 13.09 0.26001 14.4824 0.26001 16.2C0.26001 17.9176 1.65239 19.31 3.36999 19.31Z" fill="black"/>
-								<path d="M3.36999 31.9C5.0876 31.9 6.47998 30.5076 6.47998 28.79C6.47998 27.0724 5.0876 25.68 3.36999 25.68C1.65239 25.68 0.26001 27.0724 0.26001 28.79C0.26001 30.5076 1.65239 31.9 3.36999 31.9Z" fill="black"/>
-							</svg>
-						</button>
-					</div>
-				</div>
-				<div class="steps_wrapp">
-					<div class="steps">
-						<div class="step">
-							<p>1</p>	
+				<div class="steps_wrapp_2">
+					<div class="steps_2">
+						<div class="step_2">
+							<p>1</p>
+							<div class="line" style="background: #E94B4B"></div>
 						</div>
-						<div class="step">
-							<p>2</p>	
+						<div class="step_2">
+							<p>2</p>
+							<div class="line" style="background: #FFAC53"></div>
 						</div>
-						<div class="step">
-							<p>3</p>	
+						<div class="step_2">
+							<p>3</p>
 						</div>
-						<div class="step">
-							<p>4</p>	
+						<div class="step_2">
+							<p>4</p>
+							<div class="line" style="background: #FFAC53"></div>
 						</div>
-						<div class="step">
-							<p>5</p>	
+						<div class="step_2">
+							<p>5</p>
 						</div>
-						<div class="step prevlast">
-							<p>6</p>	
+						<div class="step_2">
+							<p>6</p>
+							<div class="line" style="background: #E94B4B"></div>
 						</div>
-						<div class="step">
-							<p>7</p>	
+						<div class="step_2">
+							<p>7</p>
 						</div>
 					</div>
 				</div>
 				<div class="header_two_cols">
 					<div>
 						<div class="white_box_wrapp">
-							<img class="angle_top" src="static/img/angle.svg" alt="" />
+							<!-- <img class="angle_top" src="img/angle.svg" alt="" /> -->
 							<div class="white_box">
 								<div>
-									<p>farm</p>
+									<div class="circle"></div>
+									<p>day of the week</p>
 								</div>
 								<div>
-									<ul class="breadcrumbs">
-										<li><a href="#">opening</a></li>
-										<li><a href="#">weekly auction window</a></li>
-										<li><a href="#">lose</a></li>
-									</ul>
+									<div class="circle orange"></div>
+									<p>auction</p>
+								</div>
+								<div>
+									<div class="circle red"></div>
+									<p>big auction</p>
 								</div>
 							</div>
 						</div>
@@ -86,12 +84,12 @@
 	<!-- Section 1 - Main -->
 	<section>
 		<div class="top_box">
-			<div class="marque_wrapp">
+			<!-- <div class="marque_wrapp">
 				<div class="info_text marque">
 					<p>Next auction is in 3 days. Get ready, get some blueberries Next auction is in 3 days. Get ready, get some blueberries</p>
 				</div>
-			</div>
-			<!-- <div class="logo_wrapp">
+			</div> -->
+			<div class="logo_wrapp">
 				<div class="logo">
 					<svg width="224" height="170" viewBox="0 0 224 170" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g filter="url(#filter0_d_1_38)">
@@ -118,7 +116,7 @@
 						</defs>
 					</svg>
 				</div>
-			</div> -->
+			</div>
 		</div>
 		<div class="row" id="topCoord">
 			<div class="screen_height">
@@ -184,72 +182,14 @@
 					</div>
 				</div>
 				<div class="b">
-					<div class="berrie-container">
-                        <div class="berrie">
-                            <p class="b_val_2">1200</p>
-                            <img src="static/img/berrie.svg" alt="Berry" />
-                            <div class="flyout-container">
-                                <span class="flyout-value">1200</span>
-                            </div>
-                        </div>
-                    </div>
-				</div>
-				<div class="b_footer_wrapp">
-					<div class="b_footer">
-						<div>
-							<div class="flash">
-								<svg width="50" height="72" viewBox="0 0 50 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<g filter="url(#filter0_d_22_501)">
-									<path d="M26.0148 1.95279L1.42797 36.1328C0.352865 37.6228 1.42797 39.6928 3.26671 39.6928H21.4732L19.8957 58.5528C19.7048 60.8328 22.6488 61.9028 23.9852 60.0528L48.572 25.8628C49.6471 24.3728 48.572 22.3028 46.7333 22.3028H28.5268L30.1043 3.44279C30.2952 1.16279 27.3512 0.0927936 26.0148 1.94279V1.95279Z" fill="#FFC66B"/>
-									<path d="M26.0148 1.95279L1.42797 36.1328C0.352865 37.6228 1.42797 39.6928 3.26671 39.6928H21.4732L19.8957 58.5528C19.7048 60.8328 22.6488 61.9028 23.9852 60.0528L48.572 25.8628C49.6471 24.3728 48.572 22.3028 46.7333 22.3028H28.5268L30.1043 3.44279C30.2952 1.16279 27.3512 0.0927936 26.0148 1.94279V1.95279Z" stroke="black" stroke-width="0.98" stroke-linecap="round" stroke-linejoin="round"/>
-									</g>
-									<defs>
-									<filter id="filter0_d_22_501" x="0.508545" y="0.509888" width="48.9829" height="70.9758" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-									<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-									<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-									<feOffset dy="10"/>
-									<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
-									<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_22_501"/>
-									<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_22_501" result="shape"/>
-									</filter>
-									</defs>
-								</svg>
-								<p>
-                                  <span id="current-energy">{{ current_energy }}</span> /
-                                  <span id="max-energy">{{ max_energy }}</span>
-                                </p>
-							</div>
-						</div>
-						<div>
-							<div class="boost">
-								<svg width="62" height="73" viewBox="0 0 62 73" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<g filter="url(#filter0_d_22_530)">
-									<path d="M59.8207 2.17689C50.7429 -1.69265 35.1939 4.16666 22.3612 17.0052C20.9131 18.455 19.565 19.9348 18.3067 21.4346C18.3067 21.4346 11.5957 22.5745 9.5984 23.8244C8.80947 24.3143 1.07989 35.613 1 38.9426L10.7269 35.803L12.4745 37.5527C7.27154 43.972 5.06452 50.9412 6.84212 55.2207C11.1164 57.0005 18.077 54.7907 24.4883 49.5813L26.1661 51.2611L23.0303 61C26.3458 60.92 37.6306 53.1809 38.1299 52.391C39.2684 50.5712 40.317 44.8219 40.4967 43.822C42.0247 42.5322 43.5426 41.1523 45.0106 39.6825C57.8333 26.834 63.6954 11.2658 59.8207 2.17689Z" fill="#A5A4C9"/>
-									<path d="M59.8207 2.17689C50.7429 -1.69265 35.1939 4.16666 22.3612 17.0052C20.9131 18.455 19.565 19.9348 18.3067 21.4346C18.3067 21.4346 11.5957 22.5745 9.5984 23.8244C8.80947 24.3143 1.07989 35.613 1 38.9426L10.7269 35.803L12.4745 37.5527C7.27154 43.972 5.06452 50.9412 6.84212 55.2207C11.1164 57.0005 18.077 54.7907 24.4883 49.5813L26.1661 51.2611L23.0303 61C26.3458 60.92 37.6306 53.1809 38.1299 52.391C39.2684 50.5712 40.317 44.8219 40.4967 43.822C42.0247 42.5322 43.5426 41.1523 45.0106 39.6825C57.8333 26.834 63.6954 11.2658 59.8207 2.17689Z" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
-									</g>
-									<path d="M15.2507 34.4731C8.11029 41.6223 4.78478 50.2313 6.86198 55.2107C11.8353 57.2805 20.4337 53.9609 27.574 46.8117" fill="#FFFF52"/>
-									<path d="M15.2507 34.4731C8.11029 41.6223 4.78478 50.2313 6.86198 55.2107C11.8353 57.2805 20.4337 53.9609 27.574 46.8117" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M59.8207 2.1769C50.7429 -1.69265 35.1939 4.16666 22.3612 17.0052C16.7188 22.6545 12.4246 28.8438 9.70825 34.7731L18.4864 43.562L27.2646 52.351C33.1866 49.6313 39.3682 45.3318 45.0106 39.6825C57.8333 26.834 63.6954 11.2658 59.8207 2.1769Z" fill="#F0E9E4" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M22.3712 17.0054C21.4025 17.9753 20.4738 18.9652 19.585 19.9651L42.0547 42.4624C43.0533 41.5725 44.042 40.6427 45.0107 39.6728C51.6118 33.0635 56.3654 25.7244 58.9019 18.9152L43.1032 3.10706C36.3124 5.64676 28.9823 10.3962 22.3712 17.0154V17.0054Z" fill="#FF5252" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M40.4268 30.9835C45.6279 30.9835 49.8441 26.7621 49.8441 21.5546C49.8441 16.3472 45.6279 12.1257 40.4268 12.1257C35.2258 12.1257 31.0095 16.3472 31.0095 21.5546C31.0095 26.7621 35.2258 30.9835 40.4268 30.9835Z" fill="#5AD8E6" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M18.3167 21.4346C18.3167 21.4346 11.6057 22.5845 9.60841 23.8244C8.81948 24.3143 1.0899 35.613 1.01001 38.9426L10.7369 35.8029L18.3067 21.4346H18.3167Z" fill="#A5A4C9" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M40.5267 43.672C40.5267 43.672 39.3782 50.3912 38.1399 52.391C37.6506 53.1809 26.3658 60.92 23.0403 61L26.1761 51.2611L40.5267 43.682V43.672Z" fill="#A5A4C9" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
-									<defs>
-									<filter id="filter0_d_22_530" x="0.47998" y="0.479919" width="61.0402" height="71.7201" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-									<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-									<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-									<feOffset dy="10.68"/>
-									<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
-									<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_22_530"/>
-									<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_22_530" result="shape"/>
-									</filter>
-									</defs>
-								</svg>
-								<p>Boost</p>
-							</div>
+					<div class="berrie_ing">
+						<div class="berrie">
+							<p class="b_val_1">1200</p>
+							<p class="b_val_2">1200</p>
+							<img src="static/img/berrie.svg" alt="" />
 						</div>
 					</div>
-				</div>
+				</div>				
 			</div>
 		</div>
 	</section>
@@ -258,6 +198,64 @@
 	<!-- /Content -->
 	<!-- Footer -->
 	<footer class="footer_section">
+		<div class="b_footer_wrapp" id="boostCoord">
+			<div class="row">
+				<div class="b_footer">
+					<div>
+						<div class="flash">
+							<svg width="50" height="72" viewBox="0 0 50 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<g filter="url(#filter0_d_22_501)">
+								<path d="M26.0148 1.95279L1.42797 36.1328C0.352865 37.6228 1.42797 39.6928 3.26671 39.6928H21.4732L19.8957 58.5528C19.7048 60.8328 22.6488 61.9028 23.9852 60.0528L48.572 25.8628C49.6471 24.3728 48.572 22.3028 46.7333 22.3028H28.5268L30.1043 3.44279C30.2952 1.16279 27.3512 0.0927936 26.0148 1.94279V1.95279Z" fill="#FFC66B"/>
+								<path d="M26.0148 1.95279L1.42797 36.1328C0.352865 37.6228 1.42797 39.6928 3.26671 39.6928H21.4732L19.8957 58.5528C19.7048 60.8328 22.6488 61.9028 23.9852 60.0528L48.572 25.8628C49.6471 24.3728 48.572 22.3028 46.7333 22.3028H28.5268L30.1043 3.44279C30.2952 1.16279 27.3512 0.0927936 26.0148 1.94279V1.95279Z" stroke="black" stroke-width="0.98" stroke-linecap="round" stroke-linejoin="round"/>
+								</g>
+								<defs>
+								<filter id="filter0_d_22_501" x="0.508545" y="0.509888" width="48.9829" height="70.9758" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+								<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+								<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+								<feOffset dy="10"/>
+								<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
+								<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_22_501"/>
+								<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_22_501" result="shape"/>
+								</filter>
+								</defs>
+							</svg>
+							<p>
+                              <span id="current-energy">{{ current_energy }}</span> /
+                              <span id="max-energy">{{ max_energy }}</span>
+                            </p>
+						</div>
+					</div>
+					<div>
+						<div class="boost">
+							<svg width="62" height="73" viewBox="0 0 62 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<g filter="url(#filter0_d_22_530)">
+								<path d="M59.8207 2.17689C50.7429 -1.69265 35.1939 4.16666 22.3612 17.0052C20.9131 18.455 19.565 19.9348 18.3067 21.4346C18.3067 21.4346 11.5957 22.5745 9.5984 23.8244C8.80947 24.3143 1.07989 35.613 1 38.9426L10.7269 35.803L12.4745 37.5527C7.27154 43.972 5.06452 50.9412 6.84212 55.2207C11.1164 57.0005 18.077 54.7907 24.4883 49.5813L26.1661 51.2611L23.0303 61C26.3458 60.92 37.6306 53.1809 38.1299 52.391C39.2684 50.5712 40.317 44.8219 40.4967 43.822C42.0247 42.5322 43.5426 41.1523 45.0106 39.6825C57.8333 26.834 63.6954 11.2658 59.8207 2.17689Z" fill="#A5A4C9"/>
+								<path d="M59.8207 2.17689C50.7429 -1.69265 35.1939 4.16666 22.3612 17.0052C20.9131 18.455 19.565 19.9348 18.3067 21.4346C18.3067 21.4346 11.5957 22.5745 9.5984 23.8244C8.80947 24.3143 1.07989 35.613 1 38.9426L10.7269 35.803L12.4745 37.5527C7.27154 43.972 5.06452 50.9412 6.84212 55.2207C11.1164 57.0005 18.077 54.7907 24.4883 49.5813L26.1661 51.2611L23.0303 61C26.3458 60.92 37.6306 53.1809 38.1299 52.391C39.2684 50.5712 40.317 44.8219 40.4967 43.822C42.0247 42.5322 43.5426 41.1523 45.0106 39.6825C57.8333 26.834 63.6954 11.2658 59.8207 2.17689Z" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
+								</g>
+								<path d="M15.2507 34.4731C8.11029 41.6223 4.78478 50.2313 6.86198 55.2107C11.8353 57.2805 20.4337 53.9609 27.574 46.8117" fill="#FFFF52"/>
+								<path d="M15.2507 34.4731C8.11029 41.6223 4.78478 50.2313 6.86198 55.2107C11.8353 57.2805 20.4337 53.9609 27.574 46.8117" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M59.8207 2.1769C50.7429 -1.69265 35.1939 4.16666 22.3612 17.0052C16.7188 22.6545 12.4246 28.8438 9.70825 34.7731L18.4864 43.562L27.2646 52.351C33.1866 49.6313 39.3682 45.3318 45.0106 39.6825C57.8333 26.834 63.6954 11.2658 59.8207 2.1769Z" fill="#F0E9E4" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M22.3712 17.0054C21.4025 17.9753 20.4738 18.9652 19.585 19.9651L42.0547 42.4624C43.0533 41.5725 44.042 40.6427 45.0107 39.6728C51.6118 33.0635 56.3654 25.7244 58.9019 18.9152L43.1032 3.10706C36.3124 5.64676 28.9823 10.3962 22.3712 17.0154V17.0054Z" fill="#FF5252" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M40.4268 30.9835C45.6279 30.9835 49.8441 26.7621 49.8441 21.5546C49.8441 16.3472 45.6279 12.1257 40.4268 12.1257C35.2258 12.1257 31.0095 16.3472 31.0095 21.5546C31.0095 26.7621 35.2258 30.9835 40.4268 30.9835Z" fill="#5AD8E6" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M18.3167 21.4346C18.3167 21.4346 11.6057 22.5845 9.60841 23.8244C8.81948 24.3143 1.0899 35.613 1.01001 38.9426L10.7369 35.8029L18.3067 21.4346H18.3167Z" fill="#A5A4C9" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M40.5267 43.672C40.5267 43.672 39.3782 50.3912 38.1399 52.391C37.6506 53.1809 26.3658 60.92 23.0403 61L26.1761 51.2611L40.5267 43.682V43.672Z" fill="#A5A4C9" stroke="black" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round"/>
+								<defs>
+								<filter id="filter0_d_22_530" x="0.47998" y="0.479919" width="61.0402" height="71.7201" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+								<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+								<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+								<feOffset dy="10.68"/>
+								<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
+								<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_22_530"/>
+								<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_22_530" result="shape"/>
+								</filter>
+								</defs>
+							</svg>
+							<p>Boost</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="footer_btns_wrapp">
 			<div class="footer_btns">
 				<div>
@@ -391,9 +389,11 @@
 	<script src="static/vendors/js/swiper.js"></script>
 	<script src="static/js/scripts.js"></script>
 	<script src="static/vendors/js/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="static/vendors/js/marque.js"></script>
 	<script src="static/js/scripts.js"></script>
-</body>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const berry = document.querySelector('.berrie');
@@ -552,4 +552,5 @@ function incrementEnergy() {
 setInterval(incrementEnergy, 1000);
 
 </script>
-{% endblock %}
+</body>
+</html>

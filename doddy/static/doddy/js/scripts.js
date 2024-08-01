@@ -12,14 +12,48 @@ function getScreenHeight() {
         });
     }
 }
+function getLineParams() {
+    $(".line").css({
+        "width" : "auto"
+    });
+    leftCoord = $(".step_2:eq(0)").offset().left;
+    rightCoord = $(".step_2:eq(1)").offset().left;
+    lineWidth = rightCoord - leftCoord + 17;
+    $(".line").css({
+        "width" : lineWidth  + "px"
+    });
+}
+function getRespParams() {
+    // if($("#boostCoord").length > 0) {
+    //     boostCoord = $("#boostCoord").offset().top + $("#boostCoord").outerHeight(true) + 25;
+    //     footerCoord = $(".footer_section").offset().top;
+    //     if(boostCoord >= footerCoord) {
+    //         $("body").addClass("resp");
+    //     }
+    // }
+    if($(window).height() <= 1450) {
+        $("body").addClass("resp");
+    } else {
+        $("body").removeClass("resp");
+    }
+    console.log($(window).height());
+}
 $(window).resize(function() {
     getScreenHeight();
+    getLineParams();
+    getRespParams();
 });
 $(document).scroll(function() {
     getScreenHeight();
+    getLineParams();
+    getRespParams();
+});
+$(window).on('load', function(){
+    getRespParams();
 });
 $(document).ready(function() {
     getScreenHeight();
+    getLineParams();    
     const swiper = new Swiper('.slider', {
         loop: true,
         direction: 'horizontal',
