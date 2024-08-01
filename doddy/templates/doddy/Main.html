@@ -128,7 +128,7 @@
 							<svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M59.0262 23.0721L54.422 19.0544C53.5031 18.2528 52.8677 17.1873 52.594 16.0045L51.2254 10.0512C50.59 7.28476 48.0386 5.3981 45.2135 5.58383L39.1136 5.9944C37.9015 6.0726 36.6991 5.76956 35.6629 5.12438L30.4819 1.87893C28.0771 0.373515 24.9392 0.842736 23.0721 2.97378L19.0544 7.57802C18.2528 8.49691 17.1873 9.13232 16.0045 9.40603L10.0512 10.7746C7.28476 11.41 5.3981 13.9614 5.58383 16.7865L5.9944 22.8864C6.0726 24.0985 5.76956 25.3009 5.12438 26.3371L1.87893 31.5181C0.373515 33.9229 0.842736 37.0608 2.97378 38.9279L7.57802 42.9456C8.49691 43.7472 9.13232 44.8127 9.40603 45.9955L10.7746 51.9488C11.41 54.7152 13.9614 56.6019 16.7865 56.4162L22.8864 56.0056C24.0985 55.9274 25.3009 56.2304 26.3371 56.8756L31.5181 60.1211C33.9229 61.6265 37.0608 61.1573 38.9279 59.0262L42.9456 54.422C43.7472 53.5031 44.8127 52.8677 45.9955 52.594L51.9488 51.2254C54.7152 50.59 56.6019 48.0386 56.4162 45.2135L56.0056 39.1136C55.9274 37.9015 56.2304 36.6991 56.8756 35.6629L60.1211 30.4819C61.6265 28.0771 61.1573 24.9392 59.0262 23.0721Z" fill="#7777D4" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
-							<p id="total-points">{{ 0 }}</p>
+							<p id="total-points">{{ total_berries }}</p>
 						</div>
 						<div class="percents_thumbs_wrapp">
 							<div class="percents_thumbs">
@@ -214,7 +214,10 @@
 									</filter>
 									</defs>
 								</svg>
-								<p>1000 / 1000</p>
+								<p>
+                                  <span id="current-energy">{{ current_energy }}</span> /
+                                  <span id="max-energy">{{ max_energy }}</span>
+                                </p>
 							</div>
 						</div>
 						<div>
@@ -455,17 +458,98 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const pointsElement = document.getElementById('total-points');
+let clickTimeout;
+let isClicked = false;
+var berries_clicked = 0;
+var click_power = {{ points_per_click }};
 
-        let points = parseInt(pointsElement.innerText);
+const button = document.getElementsByClassName('berrie')[0];
+const balanceElement = document.getElementById('total-points');
 
-        $('.berrie').on({'touchstart': (function() {
-            points += 1200;
-            pointsElement.innerText = points;
-        })});
-    });
+const maxEnergy = parseInt(document.getElementById('max-energy').textContent);
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Check if this cookie string begins with the name we want
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+let userTimestamp;
+$('.berrie').on({'touchstart': (function() {
+    if (typeof userTimestamp == 'undefined') {
+        userTimestamp = new Date().toISOString();
+    }
+
+    // Если пользователь кликает, сбрасываем таймер
+    berries_clicked += 1
+    let points = parseInt(balanceElement.innerText);
+
+    const currentEnergyElement = document.getElementById('current-energy');
+    let currentEnergy = parseInt(currentEnergyElement.textContent);
+
+    currentEnergyElement.innerText = currentEnergy - 1
+    balanceElement.innerText = points + click_power;
+    clearTimeout(clickTimeout);
+
+    // Устанавливаем таймер на 1 секунду
+    clickTimeout = setTimeout(() => {
+        sendIncreaseBalanceRequest(berries_clicked, userTimestamp);
+    }, 200);
+})});
+
+function sendIncreaseBalanceRequest(increaseAmount, timestamp) {
+        berries_clicked = 0;
+        userTimestamp = undefined;
+        const csrftoken = getCookie('csrftoken');
+        axios.post('/increase-balance/', {
+            clicks_amount: increaseAmount,
+            timestamp: timestamp
+        }, {
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            // Обрабатываем успешный ответ
+            if (response.data.status === 'success') {
+                console.log('saved')
+
+                {#balanceElement.textContent = response.data.new_balance;#}
+            } else {
+                sendIncreaseBalanceRequest(increaseAmount)
+                console.error('Error:', response.data.message);
+            }
+        })
+        .catch(error => {
+            // Обработка ошибок
+            console.error('Request failed:', error);
+        });
+}
+
+    // Function to increment energy every second
+function incrementEnergy() {
+    const currentEnergyElement = document.getElementById('current-energy');
+    let currentEnergy = parseInt(currentEnergyElement.textContent);
+    if (currentEnergy < maxEnergy) {
+        currentEnergy += {{ energy_recover_per_sec }};
+        currentEnergyElement.textContent = currentEnergy;
+    }
+}
+
+// Increment energy every second
+setInterval(incrementEnergy, 1000);
+
 </script>
-
 {% endblock %}

@@ -1,5 +1,7 @@
 import json
 
+from dateutil import parser
+from django.db import transaction
 from django.views import View
 from django.shortcuts import render
 from django.core.exceptions import PermissionDenied
@@ -7,6 +9,7 @@ from django.contrib.auth import login, authenticate
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.utils import timezone
 
 from doddy.models import DoddyUser
 from doddy.utils import get_init_data
@@ -16,9 +19,50 @@ from doddy.utils import get_init_data
 def home(request):
     # print(request.user.tg_id)
     if request.user.is_authenticated:
-        return render(request, 'Main.html')
+        print(request.user.tg_id)
+        context = {
+            'total_berries': request.user.balance,
+            'current_energy': request.user.current_energy,
+            'max_energy': request.user.max_energy,
+            'energy_recover_per_sec': request.user.energy_recover_per_sec,
+            'points_per_click': request.user.points_per_click
+        }
+        return render(request, 'Main.html', context)
     else:
         return render(request, 'auth.html')
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class IncreaseBalanceView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+                clicks_amount = data.get('clicks_amount', 0)
+                ts = data.get('timestamp')
+                try:
+                    user_timestamp = parser.isoparse(ts)
+                    if user_timestamp.tzinfo is None:
+                        # If naive, make it aware using the current timezone
+                        user_timestamp = timezone.make_aware(user_timestamp, timezone.utc)
+
+                    user_timestamp = user_timestamp.astimezone(timezone.get_current_timezone())
+                except ValueError as e:
+                    print(e)
+                    return JsonResponse({'error': 'Invalid timestamp format.'}, status=400)
+
+                with transaction.atomic():
+                    user = DoddyUser.objects.select_for_update().get(pk=request.user.pk)
+                    res = user.update_energy(user_timestamp, clicks_amount)
+                    if not res:
+                        return JsonResponse({'status': 'error'}, status=404)
+                    user.balance += clicks_amount * user.points_per_click
+                    user.save()
+                    return JsonResponse({'status': 'success', 'new_balance': request.user.balance, 'new_energy': user.last_energy})
+            except:
+                return JsonResponse({'status': 'error'}, status=404)
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Unauthorized'}, status=401)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
