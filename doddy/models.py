@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
@@ -50,11 +52,14 @@ class DoddyUser(AbstractUser):
 
     def update_energy(self, user_timestamp, clicks):
         now = timezone.now()
-        print(timezone.now())
-        print(user_timestamp)
-        if user_timestamp > now:
+
+        if user_timestamp - timedelta(seconds=3) > now:
             print('Нас разводят1')
             return
+
+        if user_timestamp > now:
+            user_timestamp = now
+
         seconds_before_user = (user_timestamp - self.energy_last_updated).total_seconds()
         energy_accumulation = seconds_before_user * float(self.energy_recover_per_sec)
 
