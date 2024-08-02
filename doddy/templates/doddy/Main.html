@@ -402,18 +402,14 @@
 
 <script>
 const berryElement = document.querySelector('.berrie');
-const valueElement = document.querySelector('.b_val_2');
 
 
 berryElement.addEventListener('touchstart', function () {
     this.classList.add('active');
-    valueElement.classList.add('animate');
 });
 
 berryElement.addEventListener('touchend', function () {
     this.classList.remove('active');
-    valueElement.classList.remove('animate');
-
 });
 
 const berryContainer = document.querySelector('.berrie_ing'); // Correct container element
