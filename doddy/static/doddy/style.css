@@ -90,6 +90,7 @@ body {
     min-height: 100%;
     min-width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 body {
@@ -274,7 +275,7 @@ a:active {
 }
 
 .content {
-    padding-top: 267px;
+    padding-top: 215px;
 }
 
 /*-------------------------------------------*/
@@ -462,13 +463,76 @@ a:active {
     z-index: 2;
 }
 
+/*-- Steps 2 --*/
+
+.steps_wrapp_2 {
+    height: 70px;
+    margin: 27px 0 18px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.steps_2 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: #F0E9E4;
+    border: 1px solid #000;
+    height: 20px;
+    border-radius: 12px;
+}
+
+.step_2 {
+    height: 59px;
+    position: relative;
+    top: -41px;
+}
+
+.step_2 p {
+    display: block;
+    width: 33px;
+    height: 33px;
+    position: relative;
+    border-radius: 50%;
+    text-align: center;
+    background: #FFF;
+    border: 1px solid #000;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 32px;
+    color: #000;
+}
+
+.step_2 p:before {
+    display: block;
+    content: "";
+    height: 27px;
+    width: 1px;
+    background: #000;
+    position: absolute;
+    top: 100%;
+    left: calc(50% - .5px);
+    z-index: 2;
+}
+
+.line {
+    width: 100%;
+    position: absolute;
+    bottom: 4px;
+    left: 9px;
+    height: 10px;
+    border-radius: 6px;
+}
+
+/*-- /Steps 2 --*/
+
 .header_two_cols {
     display: flex;
 }
 
 .header_two_cols > div:nth-child(1) {
     width: calc(100% - 135px);
-    padding-left: 12px;
+/*    padding-left: 12px;*/
 }
 
 .header_two_cols > div:nth-child(2) {
@@ -480,65 +544,45 @@ a:active {
 .white_box_wrapp {
     position: relative;
     left: 2px;
+    width: 446px;
+    height: 45px;
+    background-image: url(img/white_box_bg.svg);
 }
 
 .angle_top {
     width: 16px;
     height: 16px;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: -16px;
 }
 
-.white_box_wrapp:before {
+/*.white_box_wrapp:before {
     display: block;
     content: "";
     width: 20px;
-    height: calc(100% - 17.5px);
+    height: calc(100% - 16px);
     background: #fff;
     position: absolute;
-    top: 16px;
-    left: -16px;
-    border-left: 1.5px solid #000;
-    border-bottom: 1.5px solid #000;
+    top: 15px;
+    left: -15px;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
     border-radius: 0 0 0 8px;
-}
+}*/
 
 .white_box {
-    display: flex;
-    max-width: 517px;
-    border: 1.5px solid #000;
-    border-left: 0;
-    background: #fff;
-    border-radius: 0 8px 8px 0;
-    padding: 6px 40px 8px 0;
+    display: inline-flex;
+/*    border: 1px solid #000;*/
+/*    border-left: 0;*/
+/*    background: #fff;*/
+/*    border-radius: 0 8px 8px 0;*/
+    padding: 10px 10px 8px 32px;
 }
 
-.white_box > div:nth-child(1) {
-    padding-right: 50px;
+.white_box > div {
+    padding: 0 15px;
     position: relative;
-    z-index: 2;
-}
-
-.white_box > div:nth-child(1) p {
-    position: relative;
-    padding-left: 17px;
-}
-
-.white_box > div:nth-child(1) p:before {
-    display: block;
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #6A6AB0;
-    position: absolute;
-    top: 8px;
-    left: 0;
-}
-
-.white_box > div:nth-child(2) {
-    width: calc(100% - 103px);
 }
 
 .white_box p {
@@ -548,69 +592,34 @@ a:active {
     color: #000;
 }
 
-.breadcrumbs {
-    display: flex;
-    margin: 0 -25px;
-    position: relative;
-}
-
-.breadcrumbs:before {
-    display: block;
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #FFAC53;
+.white_box > div .circle {
     position: absolute;
-    top: 9px;
+    top: 8px;
     left: -5px;
 }
 
-.breadcrumbs:after {
-    display: block;
-    content: "";
+.circle {
+    background: #FFF;
+    border: 1px solid #000;
     width: 10px;
     height: 10px;
     border-radius: 50%;
+}
+
+.orange {
+    border: 1px solid #FFAC53;
+    background: #FFAC53;
+}
+
+.red {
+    border: 1px solid #E94B4B;
     background: #E94B4B;
-    position: absolute;
-    top: 9px;
-    right: -5px;
-}
-
-.breadcrumbs li {
-    padding: 0 10px;
-    position: relative;
-}
-
-.breadcrumbs li:after {
-    display: block;
-    content: ">";
-    font-family: "SF Pro";
-    font-weight: 200;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000;
-    position: absolute;
-    top: 0;
-    right: -7px;
-}
- 
-.breadcrumbs li:last-child:after {
-    display: none;
-}
-
-.breadcrumbs li a {
-    font-weight: 200;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000;
 }
 
 .header_border {
     height: 16px;
     background: #D9D2CE;
-    border-top: 2px solid #000;
+    border-top: 1px solid #000;
     position: relative;
 }
 
@@ -618,7 +627,7 @@ a:active {
     display: block;
     content: "";
     width: 100%;
-    height: 2px;
+    height: 1px;
     background: #000;
     position: absolute;
     left: -1px;
@@ -996,7 +1005,8 @@ section .row {
 .b_h {
     flex: 1;
     height: 100%;
-    max-height: 335px;
+/*    max-height: 335px;*/
+    max-height: 225px;
     display: flex;
     align-items: flex-end;
 }
@@ -1007,9 +1017,11 @@ section .row {
 
 .b {
     flex: 1;
-    height: 100%;
-    display: flex;
-    align-items: center;
+/*    height: 100%;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+    position: relative;
+    min-height: 385px;
 }
 
 .b > div {
@@ -1105,9 +1117,26 @@ section .row {
     color: #FFF;
 }
 
+.berrie_ing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 385px;
+    overflow: hidden; /* Ensures no overflow within this element */
+}
+
 .berrie {
     margin: 20px 0 20px 0;
-    position: relative;
+/*    position: relative;*/
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 490px;
+    transform: translate(0, -50%);
 }
 
 .b_val_1 {
@@ -1116,8 +1145,8 @@ section .row {
     line-height: 72px;
     color: rgba(255, 255, 255, .5);
     position: absolute;
-    top: -24px;
-    right: 49px;
+    top: -10px;
+    right: 72px;
     z-index: 2;
 }
 
@@ -1127,8 +1156,8 @@ section .row {
     line-height: 72px;
     color: rgba(255, 255, 255, 1);
     position: absolute;
-    top: 34px;
-    right: 111px;
+    top: 47px;
+    right: 131px;
     z-index: 2;
 }
 
@@ -1136,62 +1165,13 @@ section .row {
     display: block;
     width: auto;
     height: auto;
-    margin: 32px auto 10px auto;
-}
-
-.b_footer_wrapp {
-    height: 77px;
-}
-
-.b_footer {
-    display: flex;
-    margin: 0 -5px -23px -5px;
-}
-
-.b_footer > div:nth-child(1) {
-    width: 50%;
-    padding: 10px 10px 10px 0;
-}
-
-.b_footer > div:nth-child(2) {
-    width: 50%;
-    padding: 10px 0 10px 10p;
-    text-align: right;
-}
-
-.flash {
-    display: inline-flex;
-    min-height: 90px;
-}
-
-.flash svg {
-    margin-right: 20px;
-}
-
-.flash p {
-    padding-top: 7px;
-    font-weight: 500;
-    font-size: 35px;
-    line-height: 42px;
-    color: #FFF;
-}
-
-.boost {
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.boost svg {
-    margin-right: 20px;
-}
-
-.boost p {
-    padding-top: 3px;
-    font-weight: 500;
-    font-size: 35px;
-    line-height: 42px;
-    color: #FFF;
+    margin: 10px auto 10px auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
 }
 
 /*-- /Section 1 - Main --*/
@@ -1259,10 +1239,14 @@ section .row {
 }
 
 .info_box ul li .green {
+    background: transparent;
+    border: none;
     color: #73BA00;
 }
 
 .info_box ul li .red {
+    background: transparent;
+    border: none;
     color: #E94B4B;
 }
 
@@ -1290,10 +1274,6 @@ section .row {
     font-size: 26px;
     line-height: 31px;
     color: #FFF;
-}
-
-.info_btn svg {
-
 }
 
 /*-- /Section 1 - Info --*/
@@ -1422,6 +1402,9 @@ section .row {
     width: 486px;
     margin: 0 auto;
     position: relative;
+    flex: 1;
+    height: 100%;
+    max-height: 703px;
 }
 
 .time_box {
@@ -1429,9 +1412,10 @@ section .row {
     height: 112px;
     margin: 0 auto;
     position: absolute;
-    top: 169px;
+    top: 23%;
     left: 50%;
     transform: translate(-50%, 0);
+    z-index: 2;
 }
 
 .time_box svg {
@@ -1449,6 +1433,17 @@ section .row {
     color: #000;
     position: relative;
     z-index: 2;
+}
+
+.action_box .glass {
+    display: block;
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 .stay_num {
@@ -1506,7 +1501,7 @@ section .row {
 }
 
 .items_2_sect {
-    padding: 58px 0 120px 0;
+    padding: 58px 0 25px 0;
 }
 
 .items_2_tile h3 {
@@ -1991,6 +1986,64 @@ footer {
     color: #000;
 }
 
+.b_footer_wrapp {
+    height: 77px;
+    position: absolute;
+    bottom: calc(100% + 20px);
+    left: 0;
+    width: 100%;
+}
+
+.b_footer {
+    display: flex;
+}
+
+.b_footer > div:nth-child(1) {
+    width: 50%;
+    padding: 10px 10px 10px 10px;
+}
+
+.b_footer > div:nth-child(2) {
+    width: 50%;
+    padding: 10px 10px 10px 10px;
+    text-align: right;
+}
+
+.flash {
+    display: inline-flex;
+    min-height: 90px;
+}
+
+.flash svg {
+    margin-right: 20px;
+}
+
+.flash p {
+    padding-top: 7px;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 42px;
+    color: #FFF;
+}
+
+.boost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.boost svg {
+    margin-right: 20px;
+}
+
+.boost p {
+    padding-top: 3px;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 42px;
+    color: #FFF;
+}
+
 /*-- Popups --*/
 
 body.fixed {
@@ -2165,165 +2218,145 @@ body.fixed {
     color: #FFF;
 }
 
-.berrie-container {
-    position: relative;
-    width: 100px; /* Установите нужную ширину */
-    height: 100px; /* Установите нужную высоту */
-}
-
-.berrie {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease-in-out;
-}
-
-@keyframes tapAnimation {
-    0% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.2); }
-    100% { transform: translate(-50%, -50%) scale(1); }
-}
-
-.berry-tap {
-    animation: tapAnimation 0.2s ease-in-out;
-}
-
-.berrie-container {
-    position: relative;
-    width: 100px; /* Установите нужную ширину */
-    height: 100px; /* Установите нужную высоту */
-}
-
-.berrie {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease-in-out;
-}
-
-@keyframes tapAnimation {
-    0% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.2); }
-    100% { transform: translate(-50%, -50%) scale(1); }
-}
-
-.berry-tap {
-    animation: tapAnimation 0.2s ease-in-out;
-}
-
-.flyout-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none; /* Чтобы клики не влияли на этот элемент */
-}
-
-.flyout-value {
-    display: none;
-    position: absolute;
-    color: white;
-    font-size: 14px;
-    animation: flyoutAnimation 1s ease-out forwards;
-}
-
-@keyframes flyoutAnimation {
-    0% {
-        transform: translate(0, 0);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(20px, -20px);
-        opacity: 0;
-    }
-}
-
-.berrie-container {
-    position: relative;
-    width: 100px; /* Установите нужную ширину */
-    height: 100px; /* Установите нужную высоту */
-}
-
-.berrie {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease-in-out;
-}
-
-@keyframes tapAnimation {
-    0% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.2); }
-    100% { transform: translate(-50%, -50%) scale(1); }
-}
-
-.berry-tap {
-    animation: tapAnimation 0.2s ease-in-out;
-}
-
-@keyframes flyoutAnimation {
-    0% {
-        transform: translate(0, 0);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(20px, -20px);
-        opacity: 0;
-    }
-}
-
-.flyout-animate {
-    animation: flyoutAnimation 1s ease-out forwards;
-}
-
 /*-- /Section 1 - F 5 --*/
-.berrie-container {
-    position: relative;
-    width: 100px; /* Установите нужную ширину */
-    height: 100px; /* Установите нужную высоту */
+
+/*-- Resp Styles --*/
+
+.resp .header_site {
+    padding: 15px 0 10px 0;
 }
 
-.berrie {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease-in-out;
+.resp .steps_wrapp_2 {
+    margin: 5px 0 5px;
 }
 
-@keyframes tapAnimation {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    50% { transform: translate(-50%, -50%) rotateX(var(--angle-x)) rotateY(var(--angle-y)); }
-    100% { transform: translate(-50%, -50%) rotate(0deg); }
+.resp .content {
+    padding-top: 161px;
 }
 
-.berry-tap {
-    animation: tapAnimation 0.2s ease-in-out;
+.resp .b_h {
+    max-height: 185px;
 }
 
+.resp .header_two_cols_a {
+    padding: 15px 0 20px 0;
+}
+
+.resp .stay_num {
+    padding: 23px 0 10px 0;
+}
+
+.resp .bet_h3 {
+    padding: 52px 0 22px 0;
+}
+
+.resp .pill_wrapp {
+    padding: 25px 0 10px 0;
+}
+
+.resp .bet_pill {
+    min-height: 115px;
+}
+
+.resp .item_2 {
+    margin: 15px auto;
+}
+
+.resp .ref_title {
+    padding: 48px 0 15px 0;
+}
+
+.resp .thumb {
+    margin: 15px 0 15px 0;
+}
+
+.resp .header_2 {
+    padding: 15px 0 15px 0;
+}
+
+.resp .boost_header {
+    padding: 52px 0 0 0;
+}
+
+.resp .items_2_sect {
+    padding: 25px 0 5px 0;
+}
+
+/*-- /Resp Styles --*/
 .b_val_2 {
-    display: none; /* Скрываем число по умолчанию */
-    position: absolute;
-    color: rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    animation: fly-out 1s ease-out forwards; /* Apply fly-out animation */
 }
 
-@keyframes flyoutAnimation {
+.b_val_2.animate {
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    pointer-events: none; /* Disable interaction */
+}
+
+@keyframes fly-out {
     0% {
-        transform: translate(0, 0);
+        transform: translateY(0) scale(1);
         opacity: 1;
     }
+    50% {
+        transform: translateY(-30px) scale(1.2); /* Move up and slightly scale */
+        opacity: 0.8;
+    }
     100% {
-        transform: translate(50px, -50px); /* Увеличен путь анимации */
+        transform: translateY(-50px) scale(1); /* Final position above */
         opacity: 0;
     }
 }
 
-.flyout-animate {
-    display: block; /* Показываем число при анимации */
-    animation: flyoutAnimation 2s ease-out forwards; /* Увеличена длительность анимации */
+.berrie {
+    transition: transform 0.05s ease-out;
+    cursor: pointer; /* Indicate interactivity */
+}
+.berrie_ing {
+    overflow: hidden;
+}
+
+.berrie.active {
+    animation: tap-animation 0.15s ease-out forwards; /* Short animation duration */
+}
+
+@keyframes tap-animation {
+    0% {
+        transform: translate(0, -50%) scale(1);
+    }
+    100% {
+        transform: translate(0, -50%) scale(1.1);
+    }
 }
 
 
+.floating-number {
+    position: absolute;
+    font-weight: 500;
+    font-size: 60px;
+    line-height: 72px;
+    color: rgba(255, 255, 255, 1);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: translate(-50%, -50%); /* Центрируем элемент относительно точки клика */
+    pointer-events: none; /* Чтобы элемент не мешал кликам */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.animate {
+    animation: floatUp 1s forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -100px);
+        opacity: 0;
+    }
+}

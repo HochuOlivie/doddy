@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="viewport" content="width=768">
 	<meta name="description" content="">
     <script>
@@ -12,7 +12,13 @@
         window.Telegram.WebApp.initData = `query_id=AAEjbQprAgAAACNtCmvL9Vos&user={"id":6090812707,"first_name":"Johan","last_name":"","username":"shrim_l","language_code":"ru","allows_write_to_pm":true}&auth_date=1722465166&hash=7cb6c65514106e484bc15e0e0adfc4579762954dc753d5fff1f4baf7c34e95c8`
     </script>
 	<link rel="stylesheet" type="text/css" href="static/style.css">
-	<link rel="icon" type="image/png" href="favicon/favicon.ico" sizes="16x16">	
+	<link rel="icon" type="image/png" href="favicon/favicon.ico" sizes="16x16">
+    <style>
+    /* Отключить двойное нажатие для зума */
+    html, body {
+      touch-action: manipulation;
+    }
+    </style>
 	<title></title>
 </head>
 <body>
@@ -184,8 +190,8 @@
 				<div class="b">
 					<div class="berrie_ing">
 						<div class="berrie">
-							<p class="b_val_1">1200</p>
-							<p class="b_val_2">1200</p>
+{#							<p class="b_val_1">1200</p>#}
+{#							<p style="visibility: hidden" class="b_val_2">{{ points_per_click }}</p>#}
 							<img src="static/img/berrie.svg" alt="" />
 						</div>
 					</div>
@@ -395,67 +401,50 @@
 	<script src="static/js/scripts.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const berry = document.querySelector('.berrie');
-    const value2Template = document.querySelector('.b_val_2');
-    let lastTouchEnd = 0;
+const berryElement = document.querySelector('.berrie');
+const valueElement = document.querySelector('.b_val_2');
 
-    function handleTap(event) {
-        const touchX = event.touches[0].clientX;
-        const touchY = event.touches[0].clientY;
-        const berryRect = berry.getBoundingClientRect();
-        const centerX = berryRect.left + berryRect.width / 2;
-        const centerY = berryRect.top + berryRect.height / 2;
 
-        // Вычисление углов наклона
-        const deltaX = touchX - centerX;
-        const deltaY = touchY - centerY;
-        const angleX = (deltaY / berryRect.height) * 30; // угол наклона по оси X (наклон вверх-вниз)
-        const angleY = (deltaX / berryRect.width) * 30; // угол наклона по оси Y (наклон влево-вправо)
+berryElement.addEventListener('touchstart', function () {
+    this.classList.add('active');
+    valueElement.classList.add('animate');
+});
 
-        // Установка CSS переменных для углов наклона
-        berry.style.setProperty('--angle-x', `${angleX}deg`);
-        berry.style.setProperty('--angle-y', `${angleY}deg`);
+berryElement.addEventListener('touchend', function () {
+    this.classList.remove('active');
+    valueElement.classList.remove('animate');
 
-        // Генерация случайных координат в более большой области
-        const randomTop = Math.random() * 80 - 40;
-        const randomRight = Math.random() * 80 - 40;
+});
 
-        // Добавляем класс для анимации ягоды
-        berry.classList.add('berry-tap');
+const berryContainer = document.querySelector('.berrie_ing'); // Correct container element
 
-        // Клонируем элемент числа
-        const value2 = value2Template.cloneNode(true);
-        value2.style.display = 'block';
-        value2.style.top = `${randomTop}px`;
-        value2.style.right = `${randomRight}px`;
-        value2.classList.add('flyout-animate');
+function createNumberElement(x, y) {
+        // Создаем новый элемент
+        const numberElement = document.createElement('div');
+        numberElement.className = 'floating-number';
+        numberElement.textContent = '{{ points_per_click }}';
+        document.body.appendChild(numberElement);
 
-        // Добавляем число в контейнер ягоды
-        berry.appendChild(value2);
+        // Устанавливаем позицию элемента
+        numberElement.style.left = `${x}px`;
+        numberElement.style.top = `${y}px`;
 
-        // Удаляем класс для анимации ягоды
-        setTimeout(function() {
-            berry.classList.remove('berry-tap');
-        }, 200); // Длительность анимации ягоды должна совпадать с длительностью в CSS
+        // Добавляем анимацию
+        setTimeout(() => {
+            numberElement.classList.add('animate');
+        }, 0);
 
-        // Удаляем число после завершения анимации
-        setTimeout(function() {
-            value2.remove();
-        }, 2000); // Длительность анимации числа должна совпадать с длительностью в CSS
+        // Удаляем элемент после окончания анимации
+        numberElement.addEventListener('animationend', function () {
+            document.body.removeChild(numberElement);
+        });
     }
 
-    berry.addEventListener('touchstart', handleTap);
-
-    // Отключаем масштабирование при двойном тапе
-    document.addEventListener('touchend', function(event) {
-        const now = (new Date()).getTime();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
-        }
-        lastTouchEnd = now;
-    }, false);
-});
+berryElement.addEventListener('touchstart', function (event) {
+        const x = event.touches[0].pageX;
+        const y = event.touches[0].pageY;
+        createNumberElement(x, y);
+    });
 
 </script>
 
