@@ -41,7 +41,7 @@ class DoddyUser(AbstractUser):
         recovered_energy = elapsed_time * float(self.energy_recover_per_sec)
 
         # Calculate the new current energy
-        new_energy = self.last_energy + recovered_energy
+        new_energy = floor(min(self.last_energy + recovered_energy, self.max_energy))
 
         if new_energy > self.max_energy:
             new_energy = self.max_energy
@@ -50,6 +50,8 @@ class DoddyUser(AbstractUser):
 
     def update_energy(self, user_timestamp, clicks):
         now = timezone.now()
+        print(timezone.now())
+        print(user_timestamp)
         if user_timestamp > now:
             print('Нас разводят1')
             return
@@ -65,8 +67,11 @@ class DoddyUser(AbstractUser):
             print('Нас разводят')
             return
         else:
-            self.last_energy = min(energy_was + energy_accum1 - clicks, self.max_energy)
-
+            le = min(energy_was + energy_accum1 - clicks, self.max_energy)
+            if le < 0:
+                print('Нас разводят')
+                return
+            self.last_energy = le
         self.energy_last_updated = now
         self.save()
 
