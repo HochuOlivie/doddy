@@ -34,13 +34,13 @@ services:
     ports:
       - 80:80
       - 443:443
-    labels:
-      - "traefik.enable=true"
-#      - "traefik.http.routers.dashboard.rule=Host(`doddynft.ru`)"
-      - "traefik.http.routers.dashboard.tls=true"
-      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.middlewares=auth"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.dashboard.rule=Host(`dasdoddynft.ru`)"
+#      - "traefik.http.routers.dashboard.tls=true"
+#      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+#      - "traefik.http.routers.dashboard.service=api@internal"
+#      - "traefik.http.routers.dashboard.middlewares=auth"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./letsencrypt:/certificates"
