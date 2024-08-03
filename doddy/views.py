@@ -10,8 +10,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.utils import timezone
+from django.views.generic import ListView
 
-from doddy.models import DoddyUser
+from doddy.models import DoddyUser, FarmType, UserFarm
 from doddy.utils import get_init_data
 
 
@@ -19,13 +20,13 @@ from doddy.utils import get_init_data
 def home(request):
     # print(request.user.tg_id)
     if request.user.is_authenticated:
-        print(request.user.tg_id)
         context = {
             'total_berries': request.user.balance,
             'current_energy': request.user.current_energy,
             'max_energy': request.user.max_energy,
             'energy_recover_per_sec': request.user.energy_recover_per_sec,
-            'points_per_click': request.user.points_per_click
+            'points_per_click': request.user.points_per_click,
+            'active_page': 'home'
         }
         return render(request, 'Main.html', context)
     else:
@@ -97,3 +98,19 @@ class AuthView(View):
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
 
+
+class FarmsView(View):
+    def get(self, request, *args, **kwargs):
+        user_farms = request.user.farms.all()
+
+        farm_types = FarmType.objects.all()
+
+        farm_type_to_level = {farm.farm_type: farm.level for farm in user_farms}
+
+        for ft in farm_types:
+            ft.level = farm_type_to_level.get(ft, None)
+
+        return render(request, 'Main_2.html', context={
+            'farms': farm_types,
+            'active_page': 'farms'
+        })

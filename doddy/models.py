@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import F, Sum
 from django.utils import timezone
 from decimal import Decimal
 from math import floor
@@ -9,15 +10,15 @@ from math import floor
 
 class DoddyUser(AbstractUser):
     tg_id = models.CharField(max_length=100, unique=True, verbose_name="Telegram ID")
-    first_name = models.CharField(max_length=100, verbose_name="First Name")
+    first_name = models.CharField(max_length=100, blank=True, null=True, verbose_name="First Name")
     last_name = models.CharField(max_length=100, blank=True, null=True, verbose_name="Last Name")
     tg_username = models.CharField(max_length=100, blank=True, null=True, verbose_name="Username")
     language_code = models.CharField(max_length=10, blank=True, null=True, verbose_name="Language Code")
-    balance = models.BigIntegerField(default=0, verbose_name="Berry Balance")
+    balance = models.PositiveBigIntegerField(default=0, verbose_name="Berry Balance")
 
     points_per_click = models.PositiveIntegerField(default=100, verbose_name="Berries per click")
 
-    last_energy = models.PositiveIntegerField(default=1000, verbose_name="Last Energy")
+    last_energy = models.FloatField(default=1000, verbose_name="Last Energy")
     energy_last_updated = models.DateTimeField(default=timezone.now, verbose_name="Energy Last Updated")
     energy_recover_per_sec = models.DecimalField(
         max_digits=20,  # Total number of digits
@@ -26,6 +27,8 @@ class DoddyUser(AbstractUser):
         verbose_name="Energy recover per sec"
     )
     max_energy = models.PositiveIntegerField(default=1000, verbose_name="Max Energy")
+
+    bbc_balance = models.BigIntegerField(default=0, verbose_name="BBC Balance")
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
@@ -50,6 +53,14 @@ class DoddyUser(AbstractUser):
 
         return floor(new_energy)
 
+    @property
+    def berries_per_sec(self):
+        return self.farms.select_related('farm_type').annotate(
+            income=F('farm_type__farm_per_sec') * F('level')
+        ).aggregate(
+            total_income=Sum('income')
+        )['total_income'] or 0
+
     def update_energy(self, user_timestamp, clicks):
         now = timezone.now()
 
@@ -73,6 +84,7 @@ class DoddyUser(AbstractUser):
             return
         else:
             le = min(energy_was + energy_accum1 - clicks, self.max_energy)
+            print(le)
             if le < 0:
                 print('Нас разводят')
                 return
@@ -85,3 +97,39 @@ class DoddyUser(AbstractUser):
     class Meta:
         verbose_name = "Doddy User"
         verbose_name_plural = "Doddy Users"
+
+
+class Auction(models.Model):
+    nft_number = models.PositiveIntegerField(default=0, verbose_name="Number of nfts in auction")
+    date = models.DateTimeField(default=timezone.now(), verbose_name="Date")
+
+
+class AuctionBet(models.Model):
+    user = models.ForeignKey(DoddyUser, on_delete=models.CASCADE)
+    auction = models.ForeignKey(Auction, on_delete=models.CASCADE)
+    _berries = models.PositiveBigIntegerField(verbose_name="Berry Bet")
+    min_bet = models.PositiveBigIntegerField(verbose_name="Min Bet")
+    max_bet = models.PositiveBigIntegerField(verbose_name="Max Bet")
+
+    @property
+    def berries(self):
+        return self._berries
+
+    @berries.setter
+    def berries(self, value):
+        if value <= 0:
+            raise ValueError('Berry Bets must be greater than 0')
+        self.berries = value
+
+
+class FarmType(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Farm Name")
+    farm_per_sec = models.PositiveIntegerField(verbose_name="Farm per sec")
+    cost_to_upgrade = models.PositiveBigIntegerField(verbose_name="Cost to Upgrade")
+
+
+class UserFarm(models.Model):
+    user = models.ForeignKey(DoddyUser, on_delete=models.CASCADE, related_name='farms')
+    farm_type = models.ForeignKey(FarmType, on_delete=models.CASCADE)
+    level = models.PositiveSmallIntegerField(verbose_name="Farm Level")
+
