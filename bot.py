@@ -12,15 +12,12 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
-    await message.reply("Hi!\nI'm your bot!\nPowered by aiogram.")
-
-@dp.message_handler(commands=['webapp'])
-async def send_webapp(message: types.Message):
     keyboard = types.InlineKeyboardMarkup()
-    web_app = types.WebAppInfo(url="https://doddynft.ru/?param=param")  # URL to your webapp
+    web_app = types.WebAppInfo(url="https://doddynft.ru/")  # URL to your webapp
     button = types.InlineKeyboardButton(text="Open WebApp", web_app=web_app)
     keyboard.add(button)
     await message.answer("Click the button below to open the WebApp.", reply_markup=keyboard)
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
