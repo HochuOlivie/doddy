@@ -30,7 +30,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 ALLOWED_HOSTS = [
-    'doddynft.ru', '127.0.0.1']
+    'doddynft.ru',
+    'https://doddynft.ru',
+    '127.0.0.1']
 
 TG_API_TOKEN = "7293560232:AAEfbhXF-bNtG1J_AY24ghfRcKUQLiCEmxM"
 # Application definition
