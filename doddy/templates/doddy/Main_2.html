@@ -76,9 +76,12 @@
 					<svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M59.0262 23.0721L54.422 19.0544C53.5031 18.2528 52.8677 17.1873 52.594 16.0045L51.2254 10.0512C50.59 7.28476 48.0386 5.3981 45.2135 5.58383L39.1136 5.9944C37.9015 6.0726 36.6991 5.76956 35.6629 5.12438L30.4819 1.87893C28.0771 0.373515 24.9392 0.842736 23.0721 2.97378L19.0544 7.57802C18.2528 8.49691 17.1873 9.13232 16.0045 9.40603L10.0512 10.7746C7.28476 11.41 5.3981 13.9614 5.58383 16.7865L5.9944 22.8864C6.0726 24.0985 5.76956 25.3009 5.12438 26.3371L1.87893 31.5181C0.373515 33.9229 0.842736 37.0608 2.97378 38.9279L7.57802 42.9456C8.49691 43.7472 9.13232 44.8127 9.40603 45.9955L10.7746 51.9488C11.41 54.7152 13.9614 56.6019 16.7865 56.4162L22.8864 56.0056C24.0985 55.9274 25.3009 56.2304 26.3371 56.8756L31.5181 60.1211C33.9229 61.6265 37.0608 61.1573 38.9279 59.0262L42.9456 54.422C43.7472 53.5031 44.8127 52.8677 45.9955 52.594L51.9488 51.2254C54.7152 50.59 56.6019 48.0386 56.4162 45.2135L56.0056 39.1136C55.9274 37.9015 56.2304 36.6991 56.8756 35.6629L60.1211 30.4819C61.6265 28.0771 61.1573 24.9392 59.0262 23.0721Z" fill="#7777D4" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
-					<p>{{ user.balance }}</p>
+					<p id="total-points">{{ user.total_balance }}</p>
 				</div>
-				<h4>{{ user.berries_per_sec }}/s</h4>
+				<h4>
+                    <span id="berries-per-sec">{{ user.berries_per_sec }}</span>
+                    <span>/ s</span>
+                </h4>
 			</div>
 
 			<div class="tables_items">
@@ -97,7 +100,7 @@
 					</div>
 				</div>
                 {% for farm in farms %}
-                    <div class="table_item">
+                    <div class="table_item buy-farm-button" data-farm-type-id="{{ farm.pk }}">
                         <div>
                             <div class="icon_box"></div>
                         </div>
@@ -152,5 +155,107 @@
 {% endblock %}
 {% block content1 %}
 </body>
+<script>
+var berries_per_sec = {{ user.berries_per_sec }}
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function updateFarmLevel(farmId, newLevel) {
+        // Find the table item by farm ID
+        const farmElement = document.querySelector(`.table_item[data-farm-type-id="${farmId}"]`);
+
+        if (!farmElement) {
+            console.error("Farm not found");
+            return;
+        }
+
+        // Find all pill_2 elements inside the farm element
+        const pillElements = farmElement.querySelectorAll('.pill_2');
+
+        if (pillElements.length === 0) {
+            console.error("Pill elements not found");
+            return;
+        }
+
+        // Update the first pill_2 element
+        const firstPill = pillElements[0];
+        const levelElement = firstPill.querySelector('.num');
+        const costElement = firstPill.querySelector('.k');
+
+        // Update level and cost
+        const currentLevel = parseInt(levelElement.textContent);
+
+        if (currentLevel === 0 && newLevel > 0) {
+            firstPill.classList.add('yellow'); // Add yellow class
+        }
+
+        // Update the text content
+        levelElement.textContent = newLevel;
+
+        // Repeat for the second pill if needed
+        if (pillElements.length > 1) {
+            const secondPill = pillElements[1];
+            const secondLevelElement = secondPill.querySelector('.num');
+            const secondCostElement = secondPill.querySelector('.k');
+
+            // Update the second pill
+            secondLevelElement.textContent = newLevel;
+        }
+    }
+
+function buyFarm(farmTypeId) {
+    // Prepare the data to send
+    const data = {
+        farm_type_id: farmTypeId
+    };
+    // Make a POST request to the server
+    axios.post('/buy-farm/', data, {
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+        }
+    })
+    .then(response => {
+        if (response.data.status === 'ok') {
+            console.log(response.data)
+            // Update the UI or notify the user of success
+            berries_per_sec = parseInt(response.data['berries_per_sec'])
+            document.getElementById('berries-per-sec').textContent = berries_per_sec
+            document.getElementById('total-points').textContent = response.data.balance
+            updateFarmLevel(farmTypeId, response.data['new_level']);
+        }
+    })
+    .catch(error => {
+    });
+}
+document.querySelectorAll('.buy-farm-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const farmTypeId = this.getAttribute('data-farm-type-id'); // Assuming the button has a data attribute for farm type ID
+        buyFarm(farmTypeId);
+    });
+});
+
+
+function incrementBerries() {
+    const currentBerriesElement = document.getElementById('total-points');
+    let currentBerries = parseInt(currentBerriesElement.textContent);
+    currentBerries += berries_per_sec
+    currentBerriesElement.textContent = currentBerries;
+}
+
+setInterval(incrementBerries, 1000);
+</script>
 {% endblock %}
-</html>

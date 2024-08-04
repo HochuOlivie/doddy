@@ -382,8 +382,16 @@ function incrementEnergy() {
     }
 }
 
+function incrementBerries() {
+    const currentBerriesElement = document.getElementById('total-points');
+    let currentBerries = parseInt(currentBerriesElement.textContent);
+    currentBerries += {{ user.berries_per_sec }}
+    currentBerriesElement.textContent = currentBerries;
+}
+
 // Increment energy every second
 setInterval(incrementEnergy, 1000);
+setInterval(incrementBerries, 1000);
 
 </script>
 </body>

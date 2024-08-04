@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from django.contrib.auth.models import AbstractUser
-from django.db import models
+from django.db import models, transaction
 from django.db.models import F, Sum
 from django.utils import timezone
 from decimal import Decimal
@@ -30,6 +30,8 @@ class DoddyUser(AbstractUser):
 
     bbc_balance = models.BigIntegerField(default=0, verbose_name="BBC Balance")
 
+    last_farm_datetime = models.DateTimeField(default=timezone.now, verbose_name="Energy Last Updated")
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
 
@@ -52,6 +54,31 @@ class DoddyUser(AbstractUser):
             new_energy = self.max_energy
 
         return floor(new_energy)
+
+    def update_farm_per_sec_lock(self):
+        with transaction.atomic():
+            now = timezone.now()
+            u = DoddyUser.objects.select_for_update().get(pk=self.pk)
+            u.balance += floor((now - self.last_farm_datetime).total_seconds()) * self.berries_per_sec
+            u.last_farm_datetime = now
+            u.save()
+
+    def update_farm_per_sec_no_lock(self):
+        with transaction.atomic():
+            now = timezone.now()
+            self.balance += floor((now - self.last_farm_datetime).total_seconds()) * self.berries_per_sec
+            self.last_farm_datetime = now
+            self.save()
+
+    @property
+    def farm_berries(self):
+        now = timezone.now()
+        seconds = floor((now - self.last_farm_datetime).total_seconds())
+        return seconds * self.berries_per_sec
+
+    @property
+    def total_balance(self):
+        return self.balance + self.farm_berries
 
     @property
     def berries_per_sec(self):
@@ -132,4 +159,5 @@ class UserFarm(models.Model):
     user = models.ForeignKey(DoddyUser, on_delete=models.CASCADE, related_name='farms')
     farm_type = models.ForeignKey(FarmType, on_delete=models.CASCADE)
     level = models.PositiveSmallIntegerField(verbose_name="Farm Level")
+
 

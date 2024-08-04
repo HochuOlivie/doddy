@@ -21,7 +21,7 @@ def home(request):
     # print(request.user.tg_id)
     if request.user.is_authenticated:
         context = {
-            'total_berries': request.user.balance,
+            'total_berries': request.user.total_balance,
             'current_energy': request.user.current_energy,
             'max_energy': request.user.max_energy,
             'energy_recover_per_sec': request.user.energy_recover_per_sec,
@@ -97,6 +97,38 @@ class AuthView(View):
             return JsonResponse({'status': 'OK'}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+
+class BuyFarmView(View):
+    def post(self, request):
+        with transaction.atomic():
+            u = DoddyUser.objects.select_for_update().get(pk=request.user.pk)
+            data = json.loads(request.body)
+            ft = FarmType.objects.get(pk=data.get('farm_type_id'))
+            if ft.cost_to_upgrade > u.total_balance:
+                return JsonResponse({'status': 'error'}, status=400)
+
+            uf_filter = UserFarm.objects.filter(user=request.user, farm_type=ft)
+            u.update_farm_per_sec_no_lock()
+            u.balance -= ft.cost_to_upgrade
+            u.save()
+            if not uf_filter:
+                UserFarm.objects.create(user=u, farm_type=ft, level=1)
+                return JsonResponse(
+                    {'status': 'ok',
+                     'berries_per_sec': u.berries_per_sec,
+                     'new_level': 1,
+                     'balance': u.total_balance
+                     },
+                    status=200)
+            else:
+                uf_filter[0].level += 1
+                uf_filter[0].save()
+                return JsonResponse({
+                    'status': 'ok', 'berries_per_sec': u.berries_per_sec,
+                    'new_level': uf_filter[0].level,
+                    'balance': u.total_balance
+                }, status=200)
 
 
 class FarmsView(View):
