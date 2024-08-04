@@ -304,6 +304,8 @@ const balanceElement = document.getElementById('total-points');
 
 const maxEnergy = parseInt(document.getElementById('max-energy').textContent);
 
+
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -394,5 +396,11 @@ setInterval(incrementEnergy, 1000);
 setInterval(incrementBerries, 1000);
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>
+  // Initialize Eruda
+  eruda.init();
+</script>
+
 </body>
 {% endblock %}
