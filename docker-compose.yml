@@ -45,5 +45,9 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./letsencrypt:/certificates"
 
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
 volumes:
   postgres_data:
