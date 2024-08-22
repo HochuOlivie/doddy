@@ -17,6 +17,13 @@ async def send_welcome(message: types.Message):
     button = types.InlineKeyboardButton(text="Open WebApp", web_app=web_app)
     keyboard.add(button)
     await message.answer("Click the button below to open the WebApp.", reply_markup=keyboard)
+@dp.message_handler(commands=['webapp'])
+async def send_welcome1(message: types.Message):
+    keyboard = types.InlineKeyboardMarkup()
+    web_app = types.WebAppInfo(url="https://maindenis.github.io/metafarm/Main.html")  # URL to your webapp
+    button = types.InlineKeyboardButton(text="Open WebApp", web_app=web_app)
+    keyboard.add(button)
+    await message.answer("Click the button below to open the WebApp.", reply_markup=keyboard)
 
 
 if __name__ == '__main__':
