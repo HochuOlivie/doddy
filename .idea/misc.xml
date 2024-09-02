@@ -3,5 +3,8 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.11 (DoddyNFT) (2)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10.12 WSL (Ubuntu): (/mnt/c/Users/madar/PycharmProjects/DoddyNFT/venv/bin/python)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (doddy)" project-jdk-type="Python SDK" />
+  <component name="PyCharmProfessionalAdvertiser">
+    <option name="shown" value="true" />
+  </component>
 </project>

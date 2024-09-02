@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<body style="transform: scale(1); left: auto; height: auto; top: auto;">
+<div class="wrapper visible">
+    <!-- Header -->
+    <header id="header">
+        <div class="header_site">
+            <div class="row">
+                <div class="steps_wrapp_2">
+                    <div class="steps_2">
+                        <div class="step_2">
+                            <p>1</p>
+                            <div class="line" style="background: #E94B4B"></div>
+                        </div>
+                        <div class="step_2">
+                            <p>2</p>
+                            <div class="line" style="background: #FFAC53"></div>
+                        </div>
+                        <div class="step_2">
+                            <p>3</p>
+                        </div>
+                        <div class="step_2">
+                            <p>4</p>
+                            <div class="line" style="background: #FFAC53"></div>
+                        </div>
+                        <div class="step_2">
+                            <p>5</p>
+                        </div>
+                        <div class="step_2">
+                            <p>6</p>
+                            <div class="line" style="background: #E94B4B"></div>
+                        </div>
+                        <div class="step_2">
+                            <p>7</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_two_cols">
+                    <div>
+                        <div class="white_box_wrapp">
+                            <!-- <img class="angle_top" src="img/angle.svg" alt="" /> -->
+                            <div class="white_box">
+                                <div>
+                                    <div class="circle"></div>
+                                    <p>day of the week</p>
+                                </div>
+                                <div>
+                                    <div class="circle orange"></div>
+                                    <p>auction</p>
+                                </div>
+                                <div>
+                                    <div class="circle red"></div>
+                                    <p>big auction</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p>MetaFarm1.0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header_border"></div>
+    </header>
+    <!-- /Header -->
+    <!-- Content -->
+    <div class="content" style="height: 100vh;">
+        <!-- Section 1 - Up 1 2 -->
+        <section>
+            <div class="row">
+                <div class="ref_title">
+                    <h2>Реферальная программа</h2>
+                </div>
+                <div class="thumb">
+                    <div>
+                        <svg width="77" height="77" viewBox="0 0 77 77" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M38.5 76C59.2107 76 76 59.2107 76 38.5C76 17.7893 59.2107 1 38.5 1C17.7893 1 1 17.7893 1 38.5C1 59.2107 17.7893 76 38.5 76Z"
+                                  fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M38.5001 47.655C48.2712 47.655 56.1922 39.734 56.1922 29.963C56.1922 20.192 48.2712 12.271 38.5001 12.271C28.7291 12.271 20.8081 20.192 20.8081 29.963C20.8081 39.734 28.7291 47.655 38.5001 47.655Z"
+                                  fill="#FF5252" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M38.5 76C48.3987 76 57.3862 72.1557 64.0901 65.9022C60.4239 55.2912 50.3575 47.655 38.5 47.655C26.6425 47.655 16.5656 55.2807 12.9099 65.9022C19.6138 72.1662 28.6013 76 38.5 76Z"
+                                  fill="#FF5252" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M61 76C69.2843 76 76 69.2843 76 61C76 52.7157 69.2843 46 61 46C52.7157 46 46 52.7157 46 61C46 69.2843 52.7157 76 61 76Z"
+                                  fill="#FFC66B" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M60.9792 53.8561V68.1438" stroke="black" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                            <path d="M68.1227 61H53.835" stroke="black" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Пригласи друга в MF2.0</h3>
+                        <p>+20% буст к фарму на 24 часа для тебя и твоего друга </p>
+                    </div>
+                </div>
+                <div class="btns_two_cols">
+                    <div class="share-button">
+                        <a href="#" class="yellow_pill_2">Пригласи друга в MF2.0</a>
+                    </div>
+                    <div class="share-link">
+                        <a href="#" class="blue_pill_2">
+                            <svg width="42" height="42" viewBox="0 0 42 42" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M34.6446 7.35541H1V41H34.6446V7.35541Z" stroke="black" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                <path d="M7.35547 7.35541V1H41.0001V34.6446H34.6447" stroke="black"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="items_2">
+                    <div class="row">
+                        <div class="items_2_tile">
+                            <h3>Список ваших друзей (2)</h3>
+                        </div>
+                    </div>
+                    {% for friend in friends %}
+                        <div class="items_3">
+                            <div class="item_3">
+                                <div>
+                                    <div class="item_3_icon red"></div>
+                                </div>
+                                <div>
+                                    <p>{{ friend.first_name }}</p>
+                                </div>
+                                <div>
+                                    <div class="users_thumb">
+                                        <img src="{% static 'img/user.svg' %}" alr="" loading="lazy">
+                                        <p>50</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="header_2">
+                    <h3>Заработай больше</h3>
+                </div>
+                <div class="items_2">
+                    <div class="item_2 item_2_3">
+                        <div>
+                            <img src="{% static 'img/icon_05.svg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>Ежедневная награда</h3>
+                            <p>+20% буст к фарму на 1 час</p>
+                        </div>
+                    </div>
+                    <div class="item_2 item_2_3">
+                        <div>
+                            <img src="{% static 'img/icon_06.svg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>Присоединяйся к нам в Telegram</h3>
+                            <p>+20% буст к фарму на 1 час</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /Section 1 - Up 1 2 -->
+    </div>
+    <!-- /Content -->
+    <!-- Footer -->
+    <footer class="footer_section">
+        {% endblock %}
+        {% block content1 %}
+        <script>
+            $('.share-button').on({'click': (function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Web Share API Draft',
+                        text: 'Take a look at this spec!',
+                        url: 'https://wicg.github.io/web-share/#share-method',
+                      })
+                      .then(() => console.log('Successful share'))
+                      .catch((error) => console.log('Error sharing', error));
+                  } else {
+                    console.log('Share not supported on this browser, do it the old way.');
+                  }
+            })});
+            $('.share-link').on({'click': (function() {
+                navigator.clipboard.writeText('https://t.me/Здесь линк на бота?start={{ user.tg_id }}');
+            })});
+        </script>
+        {% endblock %}
+</body>

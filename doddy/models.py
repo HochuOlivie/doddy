@@ -34,7 +34,7 @@ class DoddyUser(AbstractUser):
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
-
+    friends = models.ManyToManyField('self', symmetrical=False)
     def __str__(self):
         return f"{self.first_name} {self.last_name} (@{self.username})"
 

@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from dateutil import parser
@@ -59,7 +60,8 @@ class IncreaseBalanceView(View):
                         return JsonResponse({'status': 'error'}, status=404)
                     user.balance += clicks_amount * user.points_per_click
                     user.save()
-                    return JsonResponse({'status': 'success', 'new_balance': request.user.balance, 'new_energy': user.last_energy})
+                    return JsonResponse(
+                        {'status': 'success', 'new_balance': request.user.balance, 'new_energy': user.last_energy})
             except:
                 return JsonResponse({'status': 'error'}, status=404)
         else:
@@ -146,3 +148,31 @@ class FarmsView(View):
             'farms': farm_types,
             'active_page': 'farms'
         })
+
+
+class BoostView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'Boost.html')
+
+
+class EarnView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'Earn.html', context={
+            'active_page': 'earn',
+            'friends': request.user.friends.all()
+        })
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class RechargeView(View):
+    def post(self, request):
+        u: DoddyUser = DoddyUser.objects.select_for_update().get(pk=request.user.pk)
+        if u.bbc_balance >= 50:
+            u.bbc_balance -= 50
+            u.energy_last_updated = timezone.now()
+            u.last_energy = u.max_energy
+            u.save()
+
+            return JsonResponse({'status': 'ok'}, status=200)
+        else:
+            return JsonResponse({'status': 'error'}, status=400)

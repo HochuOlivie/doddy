@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-)r))-rfle6mg$0$w)x-g-1w%ho0sm-k@umgxjxk3_al3&kl+y-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+STATIC_URL = 'static/doddy'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
